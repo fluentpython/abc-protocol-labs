@@ -9,8 +9,7 @@ I am trying to understand the rationale for the runtime checkable ``SupportsXxx`
 
 2. What are the envisoned use cases for ``SupportsComplex``, given that at runtime it does not support ``isinstance`` checks on values of types that actually can be converted to ``complex``, such as built-in ``int`` and ``float``, as well as NumPy integer and float types like ``float16`` and ``uint8``?
 
-3. How does Mypy consider instances of ``int``, ``float`` and ``complex`` consistent with ``SupportsComplex``
-if only built-in ``complex`` has a ``__complex__`` method on typeshed?
+3. How does Mypy consider instances of ``int``, ``float`` and ``complex`` consistent with ``SupportsComplex`` if only built-in ``complex`` has a ``__complex__`` method on typeshed?
 
 I know PEP 484 treats those three numeric types as special cases [1], but is there hard-coded logic for ``SupportsComplex`` in Mypy?
 
