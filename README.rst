@@ -4,6 +4,14 @@ abc-prococol-labs
 
 Experiments with Python Abstract Base Classes and runtime checkable Protocols.
 
+Abstract
+========
+
+In the ``typing`` module, the protocols ``SupportsInt``, ``SupportsFloat``, and ``SupportsComplex`` are decorated with ``@runtime_checkable``. But at runtime, they produce false negatives, false positives, and inconsistent results when used to check built-in numeric types and equivalent NumPy numeric types.
+
+Setup
+=====
+
 To make this file runnable with ``doctest``, we start with some imports::
 
     >>> import numpy
@@ -21,7 +29,11 @@ And some sample numbers::
 Issues with ``SupportsInt``
 ===========================
 
-**Issue #1:** ``SupportsInt`` checks whether the type implements ``__int__``,
+Issue #1
+--------
+
+
+``SupportsInt`` checks whether the type implements ``__int__``,
 but that does not mean you can convert to ``int``.
 
 Can I convert a complex number to an ``int``? This suggests yes::
