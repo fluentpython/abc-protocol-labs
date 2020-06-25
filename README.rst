@@ -21,8 +21,8 @@ And some sample numbers::
 Issue with ``SupportsInt``
 ==========================
 
-.. note::
-   Summary: ``SupportsInt`` checks whether the type implements ``__int__``,
+.. admonition:: Summary:
+   ``SupportsInt`` checks whether the type implements ``__int__``,
    but that does not mean you can convert to ``int``.
 
 Can I convert a complex number to an ``int``? This suggests yes::
