@@ -1,3 +1,8 @@
+===================================
+Questions about ``SupportsComplex``
+===================================
+
+
 I am trying to understand the rationale for the runtime checkable ``SupportsXxx`` protocols. Focusing on ``SupportsComplex``, here are three questions I can't answer yet, and I'd appreciate any help with them:
 
 A) Why does ``typing.SupportsComplex`` handle some types differently while type checking versus at runtime?
