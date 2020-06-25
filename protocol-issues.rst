@@ -5,10 +5,16 @@ Issues with runtime checkable protocols from ``typing``
 Abstract
 ========
 
-In the ``typing`` module, the protocols ``SupportsInt``, ``SupportsFloat``, and ``SupportsComplex`` are decorated with ``@runtime_checkable``. But at runtime, they produce false negatives, false positives, and inconsistent results when used to check built-in numeric types and equivalent NumPy numeric types.
+In the ``typing`` module, the protocols ``SupportsInt``, ``SupportsFloat``, and ``SupportsComplex`` are decorated with ``@runtime_checkable``. However, at runtime they produce false negatives, false positives, and inconsistent results when used to check built-in numeric types and equivalent NumPy numeric types.
 
 Setup
 =====
+
+Verify the Python version::
+
+    >>> import sys
+    >>> sys.version_info[:2]
+    (3, 8)
 
 To make this file runnable with ``doctest``, we start with some imports::
 
@@ -29,7 +35,6 @@ Issues with ``SupportsInt``
 
 Issue #1
 --------
-
 
 ``SupportsInt`` checks whether the type implements ``__int__``,
 but that does not mean you can convert to ``int``.
@@ -60,17 +65,23 @@ In the typing-sig mailing list, Guido explained that the built-in ``complex`` im
     >>> complex.__int__
     <slot wrapper '__int__' of 'complex' objects>
     
-**Issue 2:** While type checking, Mypy says a ``complex`` is inconsistent with ``SupportsInt``, but at runtime, the same ``complex`` passes an ``isiinstance`` check with ``SupportsInt``.
+Issue #2
+--------
+
+While type checking, Mypy says a ``complex`` is inconsistent with ``SupportsInt``, but at runtime, the same ``complex`` passes an ``isinstance`` check with ``SupportsInt``.
 
 On typeshed, there is no method ``__int__`` in ``complex``, so ``int(py_complex)`` is flagged with this error::
 
     demo.py:10: error: Argument 1 to "to_int" has incompatible type "complex"; expected "SupportsInt"
 
     
-Issue with ``SupportsFloat``
-============================
+Issues with ``SupportsFloat``
+=============================
 
-**Summary:** Same as above.
+Issue #3
+--------
+
+*(Similar to #1)*
 ``isinstance(c, SupportsFloat)`` returns ``True`` for both complex types,
 but only the NumPy complex can actually be converted to ``float``.
 
@@ -80,12 +91,14 @@ but only the NumPy complex can actually be converted to ``float``.
     >>> float(np_complex)
     1.0
     >>> float(py_complex)
-    >>> int(py_complex)
     Traceback (most recent call last):
       ...
     TypeError: can't convert complex to float
 
+Issue #4
+--------
 
+*(Similar to #2)* While type checking, Mypy says a ``complex`` is inconsistent with ``SupportsFloat``, but at runtime, the same ``complex`` passes an ``isinstance`` check with ``SupportsInt``.
 
 
  
