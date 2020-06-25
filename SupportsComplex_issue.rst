@@ -62,24 +62,26 @@ How does that work?
 Sample script that Mypy accepts with no errors
 ==============================================
 
-# SupportsComplex_demo.py
-# This type checks with Mypy and runs with Python 3.8 without errors
+::
+
+    # SupportsComplex_demo.py
+    # This type checks with Mypy and runs with Python 3.8 without errors
 
 
-import numpy as np  # type: ignore
-from typing import SupportsComplex, List
+    import numpy as np  # type: ignore
+    from typing import SupportsComplex, List
 
 
-def to_complex(n: SupportsComplex) -> complex:
-    return complex(n)
+    def to_complex(n: SupportsComplex) -> complex:
+        return complex(n)
 
-c: List[complex] = [
-    to_complex(1 + 0j),
-    to_complex(np.complex64(1 + 0j)),
-    to_complex(1.0),
-    to_complex(np.float16(1.0)),
-    to_complex(1),
-    to_complex(np.uint8(1)),
-]
+    c: List[complex] = [
+        to_complex(1 + 0j),
+        to_complex(np.complex64(1 + 0j)),
+        to_complex(1.0),
+        to_complex(np.float16(1.0)),
+        to_complex(1),
+        to_complex(np.uint8(1)),
+    ]
 
-print(c)
+    print(c)
