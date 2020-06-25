@@ -21,7 +21,7 @@ And some sample numbers::
 Issue with ``SupportsInt``
 ==========================
 
-.. admonition:: Summary:
+.. note:: Summary:
    ``SupportsInt`` checks whether the type implements ``__int__``,
    but that does not mean you can convert to ``int``.
 
